@@ -79,13 +79,16 @@ export const SubmitButton = () => {
     const toastId = toast.loading("Analyzing pipeline structure...");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/pipelines/parse", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/pipelines/parse`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ nodes, edges }),
         },
-        body: JSON.stringify({ nodes, edges }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Server responded with an error");
